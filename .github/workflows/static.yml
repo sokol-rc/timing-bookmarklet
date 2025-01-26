@@ -1,0 +1,47 @@
+name: Deploy Vite app to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]  # Запускать на пуш в main
+  workflow_dispatch:  # Возможность ручного запуска
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # Используемая версия Node.js
+          cache: 'npm'  # Кэшируем зависимости
+
+      - name: Install dependencies
+        run: npm ci  # Установка зависимостей через lock-файл (быстрее и надежнее)
+
+      - name: Build project
+        run: npm run build  # Сборка проекта с Vite (должна быть прописана в package.json)
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'  # Загружаем только папку со сборкой
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
