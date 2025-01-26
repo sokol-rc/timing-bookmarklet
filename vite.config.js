@@ -1,5 +1,5 @@
 export default defineConfig({
-  base: '/timing-bookmarklet/',  // Указываем имя репозитория
+  base: '/',  // Указываем имя репозитория
   build: {
     outDir: 'dist'
   }
