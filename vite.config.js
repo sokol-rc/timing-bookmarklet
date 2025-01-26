@@ -1,8 +1,17 @@
 import { defineConfig } from "vite"
 
 export default defineConfig({
-  base: '/timing-bookmarklet/',  // Указываем имя репозитория
+  base: '/timing-bookmarklet/',
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    minify: 'esbuild',
+    target: 'es6',
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true,
+        format: 'iife',
+      },
+    },
+    noExternal: true,
+  },
 });
