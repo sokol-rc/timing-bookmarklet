@@ -1,9 +1,5 @@
-import { init } from "./features/autoupdate"
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
 
-import 
-
-(function () {
-  'use strict';
-  init()
-  console.log('111111111111')
-});
+createApp(App).mount('#app')

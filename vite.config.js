@@ -1,8 +1,16 @@
-import { defineConfig } from "vite"
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/timing-bookmarklet/',  // Указываем имя репозитория
+  plugins: [vue()],
+  base: '/timing-bookmarklet/',
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        // inlineDynamicImports: true,
+        format: 'iife',
+      },
+    },
+  },
 });
