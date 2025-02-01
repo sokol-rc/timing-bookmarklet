@@ -10,6 +10,8 @@ export default defineConfig({
       output: {
         // inlineDynamicImports: true,
         format: 'iife',
+        entryFileNames: 'script.js',
+        assetFileNames: 'assets/[name].[ext]',
       },
     },
   },
